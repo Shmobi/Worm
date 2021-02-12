@@ -11,7 +11,7 @@ public interface Repository<I, E extends Entity<I>, C, D> {
     void create(@NotNull E entity);
 
     default void createAll(@NotNull E... entities) {
-        for(E entity : entities){
+        for (E entity : entities) {
             create(entity);
         }
     }
@@ -29,14 +29,16 @@ public interface Repository<I, E extends Entity<I>, C, D> {
 
     @NotNull <T extends E> List<T> readWhere(@NotNull Class<T> type, @Nullable C conditions, @Nullable String... fields);
 
-    long count(@NotNull Class<? extends E> type);
+    default long count(@NotNull Class<? extends E> type) {
+        return countWhere(type, null);
+    }
 
     long countWhere(@NotNull Class<? extends E> type, @Nullable C conditions);
 
     void update(@NotNull E entity, @Nullable String... fields);
 
     default void updateAll(@NotNull E[] entities, @Nullable String... fields) {
-        for(E entity : entities){
+        for (E entity : entities) {
             update(entity, fields);
         }
     }
@@ -50,7 +52,7 @@ public interface Repository<I, E extends Entity<I>, C, D> {
     void delete(@NotNull E entity);
 
     default void deleteAll(@NotNull E... entities) {
-        for(E entity : entities){
+        for (E entity : entities) {
             delete(entity);
         }
     }
