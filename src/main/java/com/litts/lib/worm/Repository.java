@@ -29,6 +29,10 @@ public interface Repository<I, E extends Entity<I>, C, D> {
 
     @NotNull <T extends E> List<T> readWhere(@NotNull Class<T> type, @Nullable C conditions, @Nullable String... fields);
 
+    long count(@NotNull Class<? extends E> type);
+
+    long countWhere(@NotNull Class<? extends E> type, @Nullable C conditions);
+
     void update(@NotNull E entity, @Nullable String... fields);
 
     default void updateAll(@NotNull E[] entities, @Nullable String... fields) {
